@@ -1,0 +1,14 @@
+body {
+    font-family: Cambria;
+}
+
+.main_title {
+    color: white;
+    height: 10vw;
+    text-align: center;
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+.main_page_footer {
+    background-color: rgb(75, 156, 211);
+}
