@@ -1,7 +1,15 @@
 from flask import Flask, render_template
-import mypysql
+import pymysql
 import hashlib 
 
+def create_connection():
+    return pymysql.connect(
+        host = "10.0.0.17",
+        user = "nicsok",
+        password = "ANVIL",
+        #db = "shop",
+        cursorclass = pymysql.cursors.DictCursor
+    )
 
 app = Flask(__name__)
 

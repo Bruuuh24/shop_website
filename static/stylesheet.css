@@ -9,6 +9,10 @@ body {
     background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
 }
 
+.main_text {
+    padding: 2vw;
+}
+
 .main_page_footer {
     background-color: rgb(75, 156, 211);
 }
