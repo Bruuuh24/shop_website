@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, abort, flash, session
 import pymysql
 import hashlib 
 
@@ -20,12 +20,15 @@ def encrypt(password):
 def home_page():
     return render_template("home.html")
 
-@app.route("/about")
+@app.route("/product")
 def about_page():
-    return render_template("about.html")
+    return render_template("product.html")
 
 @app.route("/login")
 def login_page():
+    #with create_connection() as connection:
+    #    with connection.cursor() as cursor:
+    #        cursor.excute
     return render_template("login.html")
 
 app.run(debug = True)

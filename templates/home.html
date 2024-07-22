@@ -7,6 +7,60 @@
         <title>Home</title>
         <link rel="stylesheet" href="/static/stylesheet.css">
     </head>
+        <!-- mobile navbar -->
+        <nav class="navbar fixed-top d-sm-none">
+            <div class="container-fluid">
+                <!-- navbar logo (top left side)-->
+                <img alt="Diversity Logo" src="Images/diversity_logo.png" class="img-fluid" width="32">
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+                    <div class="offcanvas-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <!--page links-->
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="login.html">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="product.html">Products</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- desktop navbar-->
+        <nav class="navbar navbar-expand-lg d-sm-block">
+            <div class="container-fluid">
+                <!-- navbar logo (top left side)-->
+                <img alt="Diversity Logo" src="Images/diversity_logo.png" class="img-fluid" width="32">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <!--page links-->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/product">Products</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     <body>
         <h1 class="main_title">Horizon VPN</h1>
             <div class="main_text">
