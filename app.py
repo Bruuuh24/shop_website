@@ -7,7 +7,7 @@ def create_connection():
         host = "10.0.0.17",
         user = "nicsok",
         password = "ANVIL",
-        #db = "shop",
+        db = "nicsok_assessment",
         cursorclass = pymysql.cursors.DictCursor
     )
 
