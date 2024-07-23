@@ -20,9 +20,9 @@ def encrypt(password):
 def home_page():
     return render_template("home.html")
 
-@app.route("/product")
+@app.route("/about")
 def about_page():
-    return render_template("product.html")
+    return render_template("about.html")
 
 @app.route("/login")
 def login_page():
