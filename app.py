@@ -34,14 +34,20 @@ def home_page():
 def about_page():
     return render_template("about.html")
 
-@app.route("/login")
+@app.route("/login", methods = ["GET", "POST"])
 def login_page():
-    '''
-    with create_connection() as connection:
-        with connection.cursor() as cursor:
-            cursor.excute
-    '''
-    return render_template("login.html")
+    if request.method == "GET":
+        return render_template("login.html")
+    elif request.method == "POST":
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                username = request.args["username"]
+                password = request.args["password"]
+                username_entered = request.form["username"]
+                if username == username_entered:
+                    
+                    cursor.execute()
+                    return render_template("login.html")
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup_page():
@@ -53,8 +59,12 @@ def signup_page():
                 username = request.form["username"]
                 password_org = request.form["password"]
                 password_final = encrypt(password_org)
+                values = (
+                    username,
+                    password_final,
+                )
                 sql = "INSERT into users (username, password) VALUES(%s, %s)"
-                cursor.execute(sql, username, password_final)
+                cursor.execute(sql, values)
                 connection.commit()
             return redirect("/login")
     
