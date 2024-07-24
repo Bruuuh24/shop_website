@@ -36,9 +36,11 @@ def about_page():
 
 @app.route("/login")
 def login_page():
-    #with create_connection() as connection:
-    #    with connection.cursor() as cursor:
-    #        cursor.excute
+    '''
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            cursor.excute
+    '''
     return render_template("login.html")
 
 @app.route("/signup", methods = ["GET", "POST"])
@@ -54,6 +56,6 @@ def signup_page():
                 sql = "INSERT into users (username, password) VALUES(%s, %s)"
                 cursor.execute(sql, username, password_final)
                 connection.commit()
-            return render_template("signup.html")
+            return redirect("/login")
     
 app.run(debug = True)
