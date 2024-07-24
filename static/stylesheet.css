@@ -13,6 +13,10 @@ body {
     padding: 2vw;
 }
 
+.login_form {
+    text-align: center;
+}
+
 .main_page_footer {
     background-color: rgb(75, 156, 211);
 }
