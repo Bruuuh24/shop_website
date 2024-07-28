@@ -39,15 +39,25 @@ def login_page():
     if request.method == "GET":
         return render_template("login.html")
     elif request.method == "POST":
+        username_entered = request.form["username"]
+        password_entered = request.form["password"]
+        passwordencode = encrypt(password_entered)
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                username = request.args["username"]
-                password = request.args["password"]
-                username_entered = request.form["username"]
-                if username == username_entered:
-                    
-                    cursor.execute()
-                    return render_template("login.html")
+                sql = "SELECT password FROM users WHERE username = %s"
+                values = (username_entered)
+                cursor.execute(sql, values)
+                result = cursor.fetchone()
+                print(result["password"], passwordencode)
+            if passwordencode == result["password"]:
+                session["username"] = username_entered
+                return redirect("/dashboard")
+            else:
+                return redirect("/")
+                
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup_page():
