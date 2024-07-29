@@ -20,3 +20,7 @@ body {
 .main_page_footer {
     background-color: rgb(75, 156, 211);
 }
+
+.signup_form {
+    text-align: center;
+}
