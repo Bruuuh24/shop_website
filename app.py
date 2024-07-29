@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, abort, flash, sessi
 import pymysql
 import hashlib 
 import json
+import datetime
 
 def load_products():
     global products
@@ -22,6 +23,8 @@ def create_connection():
     )
 
 app = Flask(__name__)
+
+app.secret_key = "dslkklclkdsklfklkldsklfklsdlklkfrioewiotfwklkr3258"
 
 def encrypt(password):
     return hashlib.sha256(password.encode()).hexdigest()
@@ -54,6 +57,7 @@ def login_page():
                 return redirect("/dashboard")
             else:
                 return redirect("/")
+            #    flash("Incorrect Password")
                 
 @app.route("/dashboard")
 def dashboard():
