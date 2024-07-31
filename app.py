@@ -33,9 +33,9 @@ def encrypt(password):
 def home_page():
     return render_template("home.html")
 
-@app.route("/about")
+@app.route("/product")
 def about_page():
-    return render_template("about.html")
+    return render_template("product.html")
 
 @app.route("/login", methods = ["GET", "POST"])
 def login_page():
@@ -58,6 +58,10 @@ def login_page():
             else:
                 return redirect("/")
             #    flash("Incorrect Password")
+
+@app.route("/managementdashboard", methods = ["GET", "POST"])
+def product_manager():
+    return render_template("management_dashboard.html")
                 
 @app.route("/dashboard")
 def dashboard():
