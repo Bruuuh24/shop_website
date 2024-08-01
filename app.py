@@ -16,6 +16,8 @@ def save_products():
 def create_connection():
     return pymysql.connect(
         host = "10.0.0.17",
+    #   host = "localhost"
+    #   user = "root"
         user = "nicsok",
         password = "ANVIL",
         db = "nicsok_assessment",
@@ -60,8 +62,25 @@ def login_page():
             #    flash("Incorrect Password")
 
 @app.route("/managementdashboard", methods = ["GET", "POST"])
-def product_manager():
-    return render_template("management_dashboard.html")
+def product_manager():  
+    if request.method == "GET":
+        return render_template("management_dashboard.html")
+    elif request.method == "POST":
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                product = request.form["product"]
+                price = request.form["price"]
+                product_type = request.form["product_type"]
+                values = (
+                    product, 
+                    price, 
+                    product_type, 
+                )
+                sql = "INSERT into products (product, price, product_type) VALUES(%s, %s, %s)"
+                cursor.execute(sql, values)
+                connection.commit()
+            return redirect("/dashboard")
+        
                 
 @app.route("/dashboard")
 def dashboard():
@@ -86,4 +105,4 @@ def signup_page():
                 connection.commit()
             return redirect("/login")
     
-app.run(debug = True)
+app.run(host="0.0.0.0",debug = True)
