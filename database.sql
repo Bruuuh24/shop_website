@@ -1,20 +1,20 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : School
+ Source Server         : school
  Source Server Type    : MySQL
  Source Server Version : 80023
  Source Host           : 10.0.0.17:3306
  Source Schema         : nicsok_assessment
 
  Target Server Type    : MySQL
- Target Server Version : 80023
+ Target Server Version : 80099
  File Encoding         : 65001
 
- Date: 01/08/2024 13:52:42
+ Date: 03/08/2024 11:53:30
 */
 
-SET NAMES utf8mb4;
+SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
@@ -27,13 +27,13 @@ CREATE TABLE `products`  (
   `price` decimal(10, 2) NOT NULL,
   `product_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of products
 -- ----------------------------
 BEGIN;
-INSERT INTO `products` (`id`, `product`, `price`, `product_type`) VALUES (1, 'balloons', 123.00, 'tier_1 ');
+INSERT INTO `products` (`id`, `product`, `price`, `product_type`) VALUES (1, 'Basic Subscription', 45.00, 'tier_1 '), (2, 'Basic+ Subscription ', 90.00, 'Tier2'), (3, 'Premium Basic Subscription ', 135.00, 'Tier3'), (4, 'Premium Pro Subscription', 180.00, 'Tier4');
 COMMIT;
 
 -- ----------------------------
@@ -52,7 +52,7 @@ CREATE TABLE `users`  (
 -- Records of users
 -- ----------------------------
 BEGIN;
-INSERT INTO `users` (`id`, `username`, `password`, `account_type`) VALUES (1, 'test', '50c0152c2952082aeaf427885a2f617d67cf6de183a8816c0955ea5b875a216b', 'normal');
+INSERT INTO `users` (`id`, `username`, `password`, `account_type`) VALUES (1, 'test', '50c0152c2952082aeaf427885a2f617d67cf6de183a8816c0955ea5b875a216b', 'normal'), (12, 'test', '50c0152c2952082aeaf427885a2f617d67cf6de183a8816c0955ea5b875a216b', NULL);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

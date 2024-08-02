@@ -5,12 +5,20 @@ body {
 .main_title {
     color: white;
     height: 10vw;
+    padding-top: 3vw;
     text-align: center;
     background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
 }
 
 .main_text {
     padding: 2vw;
+}
+
+.gallery_products {
+    padding: 1vw;
+    background-color: lightblue;
+    border: black;
+    border-width: 0.5vw;
 }
 
 .login_form {
@@ -23,4 +31,12 @@ body {
 
 .signup_form {
     text-align: center;
+}
+
+.main_page_footer {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    height: 3vw;
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
 }

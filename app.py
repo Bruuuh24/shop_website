@@ -4,6 +4,7 @@ import hashlib
 import json
 import datetime
 
+'''
 def load_products():
     global products
     with open("products.txt", "r") as file:
@@ -12,6 +13,7 @@ def load_products():
 def save_products():
     with open("products.txt", "w") as file:
         json.dump(products, file)
+'''
 
 def create_connection():
     return pymysql.connect(
@@ -22,7 +24,7 @@ def create_connection():
         password = "ANVIL",
         db = "nicsok_assessment",
         cursorclass = pymysql.cursors.DictCursor
-    )
+    )    
 
 app = Flask(__name__)
 
@@ -37,7 +39,11 @@ def home_page():
 
 @app.route("/product")
 def about_page():
-    return render_template("product.html")
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM products")
+            productkey = cursor.fetchall()
+            return render_template("product.html", products = productkey)
 
 @app.route("/login", methods = ["GET", "POST"])
 def login_page():

@@ -1,0 +1,62 @@
+<div class="outer">
+    <input>
+
+    <div class="inner">
+        <p class="autofill">Cat</p>
+        <p class="autofill">Catana</p>
+        <p class="autofill">Banana</p>
+        <p class="autofill">Saugage</p>
+    </div>
+</div>
+
+<style>
+.outer {
+    position: relative;
+}
+.inner {
+    position: absolute;
+    background-color: pink;
+    min-width: 200px;
+}
+.autofill {
+    margin: 0;
+    padding: 12px;
+    cursor: pointer;
+}
+.autofill:hover {
+    background-color: red;
+}
+</style>
+
+<script>
+
+let input = document.querySelector('input');
+let paragraphs = document.querySelectorAll('p.autofill');
+
+updateParagraphs();
+
+input.addEventListener('input', updateParagraphs);
+for (let paragraph of paragraphs) {
+    paragraph.addEventListener('click', fillInput);
+}
+
+function updateParagraphs() {
+    for (let paragraph of paragraphs) {
+        if (paragraph.textContent.toLowerCase().includes(input.value.toLowerCase()) && input.value) {
+            paragraph.style.display = 'block';
+            paragraph.innerHTML = paragraph.textContent.replace(input.value, '<mark>' + input.value + '</mark>')
+        } else {
+            paragraph.style.display = 'none';
+        }
+    }
+}
+
+function fillInput(event) {
+    let clickedParagraph = event.currentTarget;
+    input.value = clickedParagraph.textContent;
+    for (let paragraph of paragraphs) {
+        paragraph.style.display = 'none';
+    }
+}
+
+</script>
