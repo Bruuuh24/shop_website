@@ -110,5 +110,9 @@ def signup_page():
                 cursor.execute(sql, values)
                 connection.commit()
             return redirect("/login")
+        
+@app.route("/view")
+def view():
+    return render_template("view.html")
     
 app.run(host="0.0.0.0",debug = True)
