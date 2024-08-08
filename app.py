@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, abort, flash, session
 import pymysql
 import hashlib 
-import json
+# import json
 import datetime
 
 '''
@@ -113,6 +113,10 @@ def signup_page():
         
 @app.route("/view")
 def view():
-    return render_template("view.html")
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM products WHERE id = %s", (request.args["id"]))
+            productkey = cursor.fetchone()
+            return render_template("view.html", product = productkey)
     
 app.run(host="0.0.0.0",debug = True)

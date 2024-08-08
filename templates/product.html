@@ -72,7 +72,7 @@
                 <div class="gallery_products">
                     <p>Product: {{ item["product"]}}</p>
                     <p>Price: ${{ item["price"]}}</p> 
-                    <a href="/view?productkey={{ item }}">View Product</a>
+                    <a href="/view?id={{ item['id'] }}">View Product</a>
                 </div>
             {% endfor %}
         </div>
