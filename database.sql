@@ -1,20 +1,20 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : school
+ Source Server         : School
  Source Server Type    : MySQL
  Source Server Version : 80023
  Source Host           : 10.0.0.17:3306
  Source Schema         : nicsok_assessment
 
  Target Server Type    : MySQL
- Target Server Version : 80099
+ Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 03/08/2024 11:53:30
+ Date: 08/08/2024 13:54:17
 */
 
-SET NAMES utf8;
+SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
@@ -26,14 +26,16 @@ CREATE TABLE `products`  (
   `product` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `price` decimal(10, 2) NOT NULL,
   `product_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `desciption` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `benfits` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of products
 -- ----------------------------
 BEGIN;
-INSERT INTO `products` (`id`, `product`, `price`, `product_type`) VALUES (1, 'Basic Subscription', 45.00, 'tier_1 '), (2, 'Basic+ Subscription ', 90.00, 'Tier2'), (3, 'Premium Basic Subscription ', 135.00, 'Tier3'), (4, 'Premium Pro Subscription', 180.00, 'Tier4');
+INSERT INTO `products` (`id`, `product`, `price`, `product_type`, `desciption`, `benfits`) VALUES (1, 'Basic Subscription', 45.00, 'tier_1 ', NULL, NULL), (2, 'Basic+ Subscription ', 90.00, 'Tier2', NULL, NULL), (3, 'Premium Basic Subscription ', 135.00, 'Tier3', NULL, NULL), (4, 'Premium Pro Subscription', 180.00, 'Tier4', NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -46,7 +48,7 @@ CREATE TABLE `users`  (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `account_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`, `username`, `password`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of users
