@@ -59,7 +59,7 @@ def login_page():
                 values = (username_entered)
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
-                print(result["password"], passwordencode)
+                # print(result["password"], passwordencode)
             if passwordencode == result["password"]:
                 session["username"] = username_entered
                 return redirect("/dashboard")
@@ -118,5 +118,11 @@ def view():
             cursor.execute("SELECT * FROM products WHERE id = %s", (request.args["id"]))
             productkey = cursor.fetchone()
             return render_template("view.html", product = productkey)
-    
+
+@app.route("/buy")
+def buy():
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("")
+
 app.run(host="0.0.0.0",debug = True)
