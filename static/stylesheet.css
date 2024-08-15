@@ -15,6 +15,14 @@ body {
 }
 
 .gallery_products {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    max-width: max-content;
+    flex-direction: row;
+}
+
+.product {
     padding: 1vw;
     background-color: lightblue;
     border: black;

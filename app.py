@@ -35,6 +35,7 @@ def encrypt(password):
 
 @app.route("/")
 def home_page():
+    # if "username" in session:
     return render_template("home.html")
 
 @app.route("/product")
@@ -47,6 +48,7 @@ def about_page():
 
 @app.route("/login", methods = ["GET", "POST"])
 def login_page():
+    #if "username" in session:
     if request.method == "GET":
         return render_template("login.html")
     elif request.method == "POST":
@@ -66,6 +68,13 @@ def login_page():
             else:
                 return redirect("/")
             #    flash("Incorrect Password")
+    #else:
+    #    flash("Already Logged In")
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
 
 @app.route("/managementdashboard", methods = ["GET", "POST"])
 def product_manager():  
@@ -90,7 +99,8 @@ def product_manager():
                 
 @app.route("/dashboard")
 def dashboard():
-    return render_template("dashboard.html")
+    if "username" in session:
+        return render_template("dashboard.html")
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup_page():
@@ -101,12 +111,14 @@ def signup_page():
             with connection.cursor() as cursor:
                 username = request.form["username"]
                 password_org = request.form["password"]
+                default_user_type = "normal"
                 password_final = encrypt(password_org)
                 values = (
                     username,
                     password_final,
+                    default_user_type,
                 )
-                sql = "INSERT into users (username, password) VALUES(%s, %s)"
+                sql = "INSERT into users (username, password, account_type) VALUES(%s, %s)"
                 cursor.execute(sql, values)
                 connection.commit()
             return redirect("/login")
@@ -119,10 +131,12 @@ def view():
             productkey = cursor.fetchone()
             return render_template("view.html", product = productkey)
 
-@app.route("/buy")
+@app.route("/checkout")
 def buy():
     with create_connection() as connection:
         with connection.cursor() as cursor:
-            cursor.execute("")
+            cursor.execute("SELECT * FROM products WHERE id = %s", (request.args["id"]))
+            productkey = cursor.fetchone()
+            return render_template("checkout.html", product = productkey)
 
 app.run(host="0.0.0.0",debug = True)

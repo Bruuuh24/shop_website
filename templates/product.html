@@ -70,10 +70,12 @@
         <div class="main_text">
             {% for item in products %}
                 <div class="gallery_products">
-                    <p>Product: {{ item["product"]}}</p>
-                    <p>Price: ${{ item["price"]}}</p> 
-                    <a href="/view?id={{ item['id'] }}">View Product</a>
-                    <a href="/buy?id={{ item['id'] }}">Buy Product</a>
+                    <div class="product">
+                        <p>Product: {{ item["product"]}}</p>
+                        <p>Price: ${{ item["price"]}} Per Month</p> 
+                        <a href="/view?id={{ item['id'] }}">View Product</a>
+                        <a href="/checkout?id={{ item['id'] }}">Buy Product</a>
+                    </div>
                 </div>
             {% endfor %}
         </div>
