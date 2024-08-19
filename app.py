@@ -17,11 +17,12 @@ def save_products():
 
 def create_connection():
     return pymysql.connect(
-        host = "10.0.0.17",
-    #   host = "localhost"
-    #   user = "root"
-        user = "nicsok",
-        password = "ANVIL",
+        # host = "10.0.0.17",
+        host = "localhost",
+        user = "root",
+        # user = "nicsok",
+        # password = "ANVIL",
+        password = "v8%!~By]_K80",
         db = "nicsok_assessment",
         cursorclass = pymysql.cursors.DictCursor
     )    
@@ -66,8 +67,8 @@ def login_page():
                 session["username"] = username_entered
                 return redirect("/dashboard")
             else:
-                return redirect("/")
-            #    flash("Incorrect Password")
+                flash("Incorrect Password")
+                return render_template("login.html")
     #else:
     #    flash("Already Logged In")
 
@@ -76,31 +77,54 @@ def logout():
     session.clear()
     return redirect("/")
 
-@app.route("/managementdashboard", methods = ["GET", "POST"])
+@app.route("/admindashboard")
+def admin_dashboard():
+    return render_template("management_dashboard.html")
+  
+        
+@app.route("/productmanager", methods = ["GET", "POST"])
 def product_manager():  
     if request.method == "GET":
-        return render_template("management_dashboard.html")
+        return render_template("product_manager.html")
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
                 product = request.form["product"]
                 price = request.form["price"]
                 product_type = request.form["product_type"]
+                try:
+                    action_type = request.form["add_product"]
+                    action_type = request["edit_product"]
+                    action_type = request["delete_product"]
+                except:
+                    pass
                 values = (
                     product, 
                     price, 
                     product_type, 
                 )
-                sql = "INSERT into products (product, price, product_type) VALUES(%s, %s, %s)"
-                cursor.execute(sql, values)
-                connection.commit()
-            return redirect("/dashboard")
-        
-                
+                sql_add = "INSERT into products (product, price, product_type) VALUES(%s, %s, %s)"
+                sql_edit = "UPDATE products SET (product, price, product_type) VALUES(%s, %s, %s)"
+                sql_delete = "DELETE FROM products WHERE (product, price, product_type) VALUES(%s, %s, %s)"
+                if action_type == "add_product":
+                    cursor.execute(values, sql_add)
+                    connection.commit()
+                    return redirect("/dashboard")
+                elif action_type == "edit_product":
+                    cursor.execute(values, sql_edit)
+                    connection.commit()
+                    return redirect("/dashboard")
+                elif action_type == "delete_product":
+                    cursor.execute(values, sql_delete)
+                    connection.commit()
+                    return redirect("/dashboard")
+
 @app.route("/dashboard")
 def dashboard():
     if "username" in session:
         return render_template("dashboard.html")
+    else:
+        return redirect("/")
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup_page():
@@ -118,7 +142,7 @@ def signup_page():
                     password_final,
                     default_user_type,
                 )
-                sql = "INSERT into users (username, password, account_type) VALUES(%s, %s)"
+                sql = "INSERT into users (username, password, account_type) VALUES(%s, %s, %s)"
                 cursor.execute(sql, values)
                 connection.commit()
             return redirect("/login")
@@ -139,4 +163,4 @@ def buy():
             productkey = cursor.fetchone()
             return render_template("checkout.html", product = productkey)
 
-app.run(host="0.0.0.0",debug = True)
+app.run(host="0.0.0.0",port=5001,debug = True)

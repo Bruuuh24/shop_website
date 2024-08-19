@@ -15,18 +15,22 @@ body {
 }
 
 .gallery_products {
+    padding: 4vw;
     display: flex;
     flex-wrap: wrap;
-    margin: auto;
-    max-width: max-content;
+    gap: 1vw;
+    max-width: fit-content;
     flex-direction: row;
+    justify-content: flex-start;
 }
 
 .product {
+    width: 20vw;
+    height: 10vw;
     padding: 1vw;
     background-color: lightblue;
-    border: black;
-    border-width: 0.5vw;
+    border-radius: 1vw;
+    border-width: 2vw;
 }
 
 .login_form {
