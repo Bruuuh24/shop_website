@@ -81,43 +81,66 @@ def logout():
 def admin_dashboard():
     return render_template("management_dashboard.html")
   
-        
-@app.route("/productmanager", methods = ["GET", "POST"])
-def product_manager():  
+@app.route("/add", methods = ["GET", "POST"])
+def add():  
     if request.method == "GET":
-        return render_template("product_manager.html")
+        return render_template("add.html")
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
                 product = request.form["product"]
                 price = request.form["price"]
                 product_type = request.form["product_type"]
-                try:
-                    action_type = request.form["add_product"]
-                    action_type = request["edit_product"]
-                    action_type = request["delete_product"]
-                except:
-                    pass
                 values = (
                     product, 
                     price, 
                     product_type, 
                 )
-                sql_add = "INSERT into products (product, price, product_type) VALUES(%s, %s, %s)"
-                sql_edit = "UPDATE products SET (product, price, product_type) VALUES(%s, %s, %s)"
-                sql_delete = "DELETE FROM products WHERE (product, price, product_type) VALUES(%s, %s, %s)"
-                if action_type == "add_product":
-                    cursor.execute(values, sql_add)
-                    connection.commit()
-                    return redirect("/dashboard")
-                elif action_type == "edit_product":
-                    cursor.execute(values, sql_edit)
-                    connection.commit()
-                    return redirect("/dashboard")
-                elif action_type == "delete_product":
-                    cursor.execute(values, sql_delete)
-                    connection.commit()
-                    return redirect("/dashboard")
+                sql = "INSERT into products (product, price, product_type) VALUES(%s, %s, %s)"
+                cursor.execute(values, sql)
+                connection.commit()
+                return redirect("/admindashboard")
+
+@app.route("/edit", methods = ["GET", "POST"])
+def edit():  
+    if request.method == "GET":
+        return render_template("edit.html")
+    elif request.method == "POST":
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                product = request.form["product"]
+                price = request.form["price"]
+                product_type = request.form["product_type"]
+                values = (
+                    product, 
+                    price, 
+                    product_type, 
+                )
+                sql = "UPDATE products SET (product, price, product_type) VALUES(%s, %s, %s)"
+                cursor.execute(values, sql)
+                connection.commit()
+                return redirect("/admindashboard")
+            
+@app.route("/delete", methods = ["GET", "POST"])
+def delete():  
+    if request.method == "GET":
+        return render_template("delete.html")
+    elif request.method == "POST":
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                product = request.form["product"]
+                price = request.form["price"]
+                product_type = request.form["product_type"]
+                values = (
+                    product, 
+                    price, 
+                    product_type, 
+                )
+                sql = "DELETE FROM products WHERE (product, price, product_type) VALUES(%s, %s, %s)"
+                cursor.execute(values, sql)
+                connection.commit()
+                return redirect("/admindashboard")
+
 
 @app.route("/dashboard")
 def dashboard():
