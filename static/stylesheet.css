@@ -22,7 +22,7 @@ body {
     padding: 4vw;
     display: flex;
     flex-wrap: wrap;
-    gap: 1vw;
+    gap: 2vw;
     max-width: fit-content;
     flex-direction: row;
     justify-content: flex-start;
@@ -42,8 +42,14 @@ body {
 
 .product_title {
     text-align: center;
-    height: 20vw;
+    height: 10vw;
     padding-top: 3vw;
+}
+
+.img-fluid {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .login_form {

@@ -75,6 +75,7 @@
             {% for item in products %}
                 <div class="product">
                     <h1 class="product_title">{{ item["product"]}}</h1>
+                    <img alt="VPN Logo" src="static/logo.png" class="img-fluid">
                     <p>Price: ${{ item["price"]}} Per Month</p> 
                     <p>{{ item["description"]}}</p>
                     <p>{{ item["benfits"]}}</p>
