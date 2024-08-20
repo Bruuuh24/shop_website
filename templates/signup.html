@@ -64,6 +64,17 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/signup">Signup</a>
                         </li>
+                        {% if username %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/admindashboard">Management Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -80,7 +91,7 @@
             <button>Submit</button>
             <br>
         </form>
-        <footer >
+        <footer>
         </footer>
     </body>
 </html>

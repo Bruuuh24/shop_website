@@ -64,6 +64,17 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/signup">Signup</a>
                         </li>
+                        {% if username %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/admindashboard">Management Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -93,17 +104,6 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
-        <!--
-        <form method="POST" class="login_form" autocomplete="off">
-            Username
-            <input name="username">
-            <br>
-            Password
-            <input name="password" type="password">
-            <br>
-            <button>Submit</button>
-        </form>
-        -->
         <footer >
         </footer>
     </body>

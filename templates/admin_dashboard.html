@@ -8,7 +8,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <title>Login To Your Account</title>
+        <title>Admin Dashboard</title>
         <link rel="stylesheet" href="/static/stylesheet.css">
     </head>
         <!-- mobile navbar -->
@@ -64,12 +64,17 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/signup">Signup</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/admindashboard">Management Dashboard</a>
-                        </li>
+                        {% if username %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/admindashboard">Management Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

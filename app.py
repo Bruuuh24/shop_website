@@ -36,22 +36,32 @@ def encrypt(password):
 
 @app.route("/")
 def home_page():
-    # if "username" in session:
-    return render_template("home.html")
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
+    return render_template("home.html", username = username_current)
 
 @app.route("/product")
 def about_page():
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
     with create_connection() as connection:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM products")
             productkey = cursor.fetchall()
-            return render_template("product.html", products = productkey)
+    return render_template("product.html", products = productkey, username = username_current)
 
 @app.route("/login", methods = ["GET", "POST"])
 def login_page():
-    #if "username" in session:
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
     if request.method == "GET":
-        return render_template("login.html")
+        return render_template("login.html", username = username_current)
     elif request.method == "POST":
         username_entered = request.form["username"]
         password_entered = request.form["password"]
@@ -68,7 +78,7 @@ def login_page():
                 return redirect("/dashboard")
             else:
                 flash("Incorrect Password")
-                return redirect("login.html")
+                return render_template("login.html", username = username_current)
     #else:
     #    flash("Already Logged In")
 
@@ -79,12 +89,20 @@ def logout():
 
 @app.route("/admindashboard")
 def admin_dashboard():
-    return render_template("admin_dashboard.html")
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
+    return render_template("admin_dashboard.html", username = username_current)
   
 @app.route("/add", methods = ["GET", "POST"])
 def add():  
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
     if request.method == "GET":
-        return render_template("add.html")
+        return render_template("add.html", username = username_current)
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -99,12 +117,16 @@ def add():
                 sql = "INSERT into products (product, price, product_type) VALUES(%s, %s, %s)"
                 cursor.execute(sql, values)
                 connection.commit()
-        return redirect("/admindashboard")
+                return redirect("/admindashboard")
 
 @app.route("/edit", methods = ["GET", "POST"])
 def edit():  
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
     if request.method == "GET":
-        return render_template("edit.html")
+        return render_template("edit.html", username = username_current)
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -125,8 +147,12 @@ def edit():
             
 @app.route("/delete", methods = ["GET", "POST"])
 def delete():  
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
     if request.method == "GET":
-        return render_template("delete.html")
+        return render_template("delete.html", username = username_current)
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -140,23 +166,28 @@ def delete():
 @app.route("/dashboard")
 def dashboard():
     if "username" in session:
-        return render_template("dashboard.html")
+        username_current = session["username"]
     else:
-        return redirect("/")
+        username_current = False
+    return render_template("dashboard.html", username = username_current)
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup_page():
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
     if request.method == "GET":
-        return render_template("signup.html")
+        return render_template("signup.html", username = username_current)
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                username = request.form["username"]
+                username_org = request.form["username"]
                 password_org = request.form["password"]
                 default_user_type = "normal"
                 password_final = encrypt(password_org)
                 values = (
-                    username,
+                    username_org,
                     password_final,
                     default_user_type,
                 )
@@ -167,18 +198,26 @@ def signup_page():
         
 @app.route("/view")
 def view():
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
     with create_connection() as connection:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM products WHERE id = %s", (request.args["id"]))
             productkey = cursor.fetchone()
-            return render_template("view.html", product = productkey)
+            return render_template("view.html", product = productkey, username = username_current)
 
 @app.route("/checkout")
 def buy():
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
     with create_connection() as connection:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM products WHERE id = %s", (request.args["id"]))
             productkey = cursor.fetchone()
-            return render_template("checkout.html", product = productkey)
+            return render_template("checkout.html", product = productkey, username = username_current)
 
 app.run(host="0.0.0.0",port=5001,debug = True)
