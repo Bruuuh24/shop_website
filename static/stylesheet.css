@@ -1,5 +1,5 @@
 body {
-    font-family: Cambria;
+    font-family: "Rajdhani", sans-serif;
 }
 
 .main_title {
@@ -14,6 +14,10 @@ body {
     padding: 2vw;
 }
 
+.form_style {
+    background-color: blueviolet;
+}
+
 .gallery_products {
     padding: 4vw;
     display: flex;
@@ -26,29 +30,34 @@ body {
 
 .product {
     width: 20vw;
+    /*
     height: 10vw;
+    */
     padding: 1vw;
     background-color: lightblue;
     border-radius: 1vw;
-    border-width: 2vw;
+    border-width: 4vw;
+    box-shadow: 10px 10px;
+}
+
+.product_title {
+    text-align: center;
+    height: 20vw;
+    padding-top: 3vw;
 }
 
 .login_form {
     text-align: center;
 }
 
-.main_page_footer {
-    background-color: rgb(75, 156, 211);
-}
-
 .signup_form {
     text-align: center;
 }
 
-.main_page_footer {
+footer {
     bottom: 0;
     position: fixed;
     width: 100%;
-    height: 3vw;
+    height: 5vw;
     background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
 }

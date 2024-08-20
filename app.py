@@ -68,7 +68,7 @@ def login_page():
                 return redirect("/dashboard")
             else:
                 flash("Incorrect Password")
-                return render_template("login.html")
+                return redirect("login.html")
     #else:
     #    flash("Already Logged In")
 
@@ -79,7 +79,7 @@ def logout():
 
 @app.route("/admindashboard")
 def admin_dashboard():
-    return render_template("management_dashboard.html")
+    return render_template("admin_dashboard.html")
   
 @app.route("/add", methods = ["GET", "POST"])
 def add():  
@@ -97,9 +97,9 @@ def add():
                     product_type, 
                 )
                 sql = "INSERT into products (product, price, product_type) VALUES(%s, %s, %s)"
-                cursor.execute(values, sql)
+                cursor.execute(sql, values)
                 connection.commit()
-                return redirect("/admindashboard")
+        return redirect("/admindashboard")
 
 @app.route("/edit", methods = ["GET", "POST"])
 def edit():  
@@ -108,6 +108,7 @@ def edit():
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
+                id = request.form["id"]
                 product = request.form["product"]
                 price = request.form["price"]
                 product_type = request.form["product_type"]
@@ -115,11 +116,12 @@ def edit():
                     product, 
                     price, 
                     product_type, 
+                    id, 
                 )
-                sql = "UPDATE products SET (product, price, product_type) VALUES(%s, %s, %s)"
-                cursor.execute(values, sql)
+                sql = "UPDATE products SET product = %s, price = %s, product_type = %s WHERE id = %s"
+                cursor.execute(sql, values)
                 connection.commit()
-                return redirect("/admindashboard")
+        return redirect("/admindashboard")
             
 @app.route("/delete", methods = ["GET", "POST"])
 def delete():  
@@ -128,18 +130,11 @@ def delete():
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                product = request.form["product"]
-                price = request.form["price"]
-                product_type = request.form["product_type"]
-                values = (
-                    product, 
-                    price, 
-                    product_type, 
-                )
-                sql = "DELETE FROM products WHERE (product, price, product_type) VALUES(%s, %s, %s)"
-                cursor.execute(values, sql)
+                values = request.form["id"]
+                sql = "DELETE FROM products WHERE id = %s"
+                cursor.execute(sql, values)
                 connection.commit()
-                return redirect("/admindashboard")
+        return redirect("/admindashboard")
 
 
 @app.route("/dashboard")
