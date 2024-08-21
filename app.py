@@ -38,30 +38,54 @@ def encrypt(password):
 def home_page():
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
-    return render_template("home.html", username = username_current)
+        account_type = False
+    return render_template("home.html", username = username_current, account_type = account_type)
 
 @app.route("/product")
-def about_page():
+def product_page():
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
+        account_type = False
     with create_connection() as connection:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM products")
             productkey = cursor.fetchall()
-    return render_template("product.html", products = productkey, username = username_current)
+    return render_template("product.html", products = productkey, username = username_current, account_type = account_type)
 
 @app.route("/login", methods = ["GET", "POST"])
 def login_page():
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
+        account_type = False
     if request.method == "GET":
-        return render_template("login.html", username = username_current)
+        return render_template("login.html", username = username_current, account_type = account_type)
     elif request.method == "POST":
         username_entered = request.form["username"]
         password_entered = request.form["password"]
@@ -78,7 +102,7 @@ def login_page():
                 return redirect("/dashboard")
             else:
                 flash("Incorrect Password")
-                return render_template("login.html", username = username_current)
+                return render_template("login.html", username = username_current, account_type = account_type)
     #else:
     #    flash("Already Logged In")
 
@@ -91,22 +115,38 @@ def logout():
 def admin_dashboard():
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
+        account_type = False
     with create_connection() as connection:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM products")
             productkey = cursor.fetchall()
-    return render_template("admin_dashboard.html", username = username_current, products = productkey)
+    return render_template("admin_dashboard.html", username = username_current, products = productkey, account_type = account_type)
   
 @app.route("/add", methods = ["GET", "POST"])
 def add():  
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
+        account_type = False
     if request.method == "GET":
-        return render_template("add.html", username = username_current)
+        return render_template("add.html", username = username_current, account_type = account_type)
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -127,10 +167,18 @@ def add():
 def edit():  
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
+        account_type = False
     if request.method == "GET":
-        return render_template("edit.html", username = username_current)
+        return render_template("edit.html", username = username_current, account_type = account_type)
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -153,10 +201,18 @@ def edit():
 def delete():  
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
+        account_type = False
     if request.method == "GET":
-        return render_template("delete.html", username = username_current)
+        return render_template("delete.html", username = username_current, account_type = account_type)
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -166,23 +222,38 @@ def delete():
                 connection.commit()
         return redirect("/admindashboard")
 
-
 @app.route("/dashboard")
 def dashboard():
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
-    return render_template("dashboard.html", username = username_current)
+        account_type = False
+    return render_template("dashboard.html", username = username_current, account_type = account_type)
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup_page():
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
+        account_type = False
     if request.method == "GET":
-        return render_template("signup.html", username = username_current)
+        return render_template("signup.html", username = username_current, account_type = account_type)
     elif request.method == "POST":
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -204,33 +275,57 @@ def signup_page():
 def view():
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
+        account_type = False
     with create_connection() as connection:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM products WHERE id = %s", (request.args["id"]))
             productkey = cursor.fetchone()
-            return render_template("view.html", product = productkey, username = username_current)
+            return render_template("view.html", product = productkey, username = username_current, account_type = account_type)
 
 @app.route("/checkout")
 def buy():
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
+        account_type = False
     with create_connection() as connection:
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM products WHERE id = %s", (request.args["id"]))
             productkey = cursor.fetchone()
-            return render_template("checkout.html", product = productkey, username = username_current)
+            return render_template("checkout.html", product = productkey, username = username_current, account_type = account_type)
         
 @app.route("/review")
 def review():
     if "username" in session:
         username_current = session["username"]
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                sql = "SELECT account_type FROM users WHERE username = %s"
+                values = username_current
+                cursor.execute(sql, values)
+                result = cursor.fetchone
+        account_type = result["account_type"]
     else:
         username_current = False
-    return render_template("review.html", username = username_current)
+        account_type = False
+    return render_template("review.html", username = username_current, account_type = account_type)
 
 
 
