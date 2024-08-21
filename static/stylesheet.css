@@ -18,6 +18,10 @@ body {
     background-color: blueviolet;
 }
 
+table, th, td {
+    border:1px solid black;
+}
+
 .gallery_products {
     padding: 4vw;
     display: flex;

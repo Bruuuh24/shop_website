@@ -93,7 +93,11 @@ def admin_dashboard():
         username_current = session["username"]
     else:
         username_current = False
-    return render_template("admin_dashboard.html", username = username_current)
+    with create_connection() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM products")
+            productkey = cursor.fetchall()
+    return render_template("admin_dashboard.html", username = username_current, products = productkey)
   
 @app.route("/add", methods = ["GET", "POST"])
 def add():  
@@ -219,5 +223,15 @@ def buy():
             cursor.execute("SELECT * FROM products WHERE id = %s", (request.args["id"]))
             productkey = cursor.fetchone()
             return render_template("checkout.html", product = productkey, username = username_current)
+        
+@app.route("/review")
+def review():
+    if "username" in session:
+        username_current = session["username"]
+    else:
+        username_current = False
+    return render_template("review.html", username = username_current)
+
+
 
 app.run(host="0.0.0.0",port=5001,debug = True)
