@@ -67,9 +67,11 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
                             </li>
+                        {% elif account_type == "admin" and username %}
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/admindashboard">Management Dashboard</a>
                             </li>
+                        {% elif username %}
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
                             </li>
