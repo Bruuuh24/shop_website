@@ -5,14 +5,7 @@ import hashlib
 import datetime
 
 '''
-def load_products():
-    global products
-    with open("products.txt", "r") as file:
-        products = json.load(file)
-
-def save_products():
-    with open("products.txt", "w") as file:
-        json.dump(products, file)
+"SELECT * FROM notices JOIN categories ON notices.category_id = categories.id"
 '''
 
 def create_connection():
