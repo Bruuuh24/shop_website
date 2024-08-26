@@ -25,7 +25,7 @@
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <!--page links-->
+                            <!-- page links mobile -->
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/">Home</a>
                             </li>
@@ -35,6 +35,24 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/product">Products</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/signup">Signup</a>
+                            </li>
+                            {% if username %}
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
+                                </li>
+                            {% endif %}
+                            {% if account_type == "admin" and username %}
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="/admindashboard">Management Dashboard</a>
+                                </li>
+                            {% endif %}
+                            {% if username %}
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -69,7 +87,7 @@
                                 <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
                             </li>
                         {% endif %}
-                        {% if account_type == "2" and username %}
+                        {% if account_type == "admin" and username %}
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/admindashboard">Management Dashboard</a>
                             </li>

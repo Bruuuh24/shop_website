@@ -223,6 +223,7 @@ def dashboard():
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
         account_type = result["account_type"]
+        print(account_type)
     else:
         username_current = False
         account_type = False
