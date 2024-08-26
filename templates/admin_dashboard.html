@@ -87,24 +87,28 @@
         <h1 class="main_title">Admin Dashboard<h1>
         <div class="main_text">
             <h2>Current Products Available</h2>
-            <table style="width:100%">
-                <tr>
-                    <th>ID</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Product Type</th>
-                    <th>Description</th>
-                    <th>Benfits</th>
-                </tr>
-                {% for item in products%}
-                <tr>
-                    <td>{{ item["id"]}}</td>
-                    <td>{{ item["product"]}}</td>
-                    <td>{{ item["price"]}}</td>
-                    <td>{{ item["product_type"]}}</td>
-                    <td>{{ item["description"]}}</td>
-                    <td>{{ item["benfits"]}}</td>
-                </tr>
+            <table class="table table-dark" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Product Type</th>
+                        <th>Description</th>
+                        <th>Benfits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in products%}
+                    <tr>
+                        <td>{{ item["id"]}}</td>
+                        <td>{{ item["product"]}}</td>
+                        <td>{{ item["price"]}}</td>
+                        <td>{{ item["product_type"]}}</td>
+                        <td>{{ item["description"]}}</td>
+                        <td>{{ item["benfits"]}}</td>
+                    </tr>
+                </tbody>
                 {% endfor %}
             </table>
             <h2>Add Product</h2>
