@@ -118,9 +118,11 @@
             </form>
         </div>
         {% with error = get_flashed_messages() %}
-            {% if error %}
-                
-            {% endif %}
+            <div class="error">
+                {% if error %}
+                    {{ error }}
+                {% endif %}
+            </div>
         {% endwith %}
         <footer >
         </footer>

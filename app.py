@@ -91,14 +91,15 @@ def login_page():
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
                 # print(result["password"], passwordencode)
-            if passwordencode == result["password"]:
-                session["username"] = username_entered
-                return redirect("/dashboard")
-            else:
-                flash("Incorrect Password Or Username")
-                return render_template("login.html", username = username_current, account_type = account_type)
-    #else:
-    #    flash("Already Logged In")
+        if result is None:
+            flash("Incorrect Password Or Username")
+            return render_template("login.html", username = False, account_type = False)
+        if passwordencode == result["password"]:
+            session["username"] = username_entered
+            return redirect("/dashboard")
+        else:
+            flash("Incorrect Password Or Username")
+            return render_template("login.html", username = False, account_type = False)
 
 @app.route("/logout")
 def logout():
@@ -222,6 +223,7 @@ def delete():
 @app.route("/dashboard")
 def dashboard():
     if "username" in session:
+        flash(str("Logged In Successfully!"))
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -233,7 +235,10 @@ def dashboard():
     else:
         username_current = False
         account_type = False
-    return render_template("dashboard.html", username = username_current, account_type = account_type)
+    if "username" in session:
+        return render_template("dashboard.html", username = username_current, account_type = account_type)
+    else:
+        return redirect("/")
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup_page():

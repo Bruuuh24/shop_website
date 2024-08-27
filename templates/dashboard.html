@@ -100,28 +100,16 @@
                 </div>
             </div>
         </nav>
-        <!--
-        <div id='navbar'>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/product">Products</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/signup">Signup</a></li>
-                {% if username %}
-                    <li><a href="/dashboard">Dashboard</a></li>
-                {% endif %}
-                {% if account_type == "admin" and username %}
-                    <li><a href="/admindashboard">Managment Dashboard</a></li>
-                {% endif %}
-                {% if username %}
-                    <li><a href="/logout">Logout</a></li>
-                {% endif %}
-            </ul>
-        </div>
-        -->
     <body>
         <h2 class="main_title">Dashboard</h2>
         <div class="main_text">
+            {% with success = get_flashed_messages() %}
+                <div class="success">
+                    {% if success %}
+                        {{ success }}
+                    {% endif %}
+                </div>
+            {% endwith %}
             <h3>Your Products</h3>
         </div>
     </body>
