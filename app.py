@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, abort, flash, session, get_flashed_messages
 import pymysql
 import hashlib 
-# import json
 import datetime
 
 # creating connection with the SQL server 
@@ -32,11 +31,11 @@ def home_page():
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE username = %s"
+                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
                 values = username_current
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
-        account_type = result["account_type"]
+            account_type = result["account_type.account_type"]
     else:
         username_current = False
         account_type = False
@@ -49,11 +48,11 @@ def product_page():
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE username = %s"
+                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
                 values = username_current
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
-        account_type = result["account_type"]
+            account_type = result["account_type.account_type"]
     else:
         username_current = False
         account_type = False
@@ -71,10 +70,12 @@ def login_page():
             username_current = session["username"]
             with create_connection() as connection:
                 with connection.cursor() as cursor:
-                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id"
-                    cursor.execute(sql)
+                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
+                    values = username_current
+                    cursor.execute(sql, values)
                     result = cursor.fetchone()
-                account_type = result["account_type"]
+                    print('here is the result!', result)
+                account_type = result["account_type.account_type"]
         else:
             username_current = False
             account_type = False
@@ -110,19 +111,22 @@ def admin_dashboard():
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE username = %s"
+                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
                 values = username_current
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
-        account_type = result["account_type"]
+            account_type = result["account_type.account_type"]
     else:
         username_current = False
         account_type = False
-    with create_connection() as connection:
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM products")
-            productkey = cursor.fetchall()
-    return render_template("admin_dashboard.html", username = username_current, products = productkey, account_type = account_type)
+    if account_type == "admin":
+        with create_connection() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM products")
+                productkey = cursor.fetchall()
+        return render_template("admin_dashboard.html", username = username_current, products = productkey, account_type = account_type)
+    else:
+        return redirect("/")
   
 @app.route("/add", methods = ["GET", "POST"])
 def add():  
@@ -131,10 +135,11 @@ def add():
             username_current = session["username"]
             with create_connection() as connection:
                 with connection.cursor() as cursor:
-                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id"
-                    cursor.execute(sql)
+                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
+                    values = username_current
+                    cursor.execute(sql, values)
                     result = cursor.fetchone()
-            account_type = result["account_type"]
+                account_type = result["account_type.account_type"]
         else:
             username_current = False
             account_type = False
@@ -162,10 +167,11 @@ def edit():
             username_current = session["username"]
             with create_connection() as connection:
                 with connection.cursor() as cursor:
-                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id"
-                    cursor.execute(sql)
+                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
+                    values = username_current
+                    cursor.execute(sql, values)
                     result = cursor.fetchone()
-            account_type = result["account_type"]
+                account_type = result["account_type.account_type"]
         else:
             username_current = False
             account_type = False
@@ -195,10 +201,11 @@ def delete():
             username_current = session["username"]
             with create_connection() as connection:
                 with connection.cursor() as cursor:
-                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id"
-                    cursor.execute(sql)
+                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
+                    values = username_current
+                    cursor.execute(sql, values)
                     result = cursor.fetchone()
-            account_type = result["account_type"]
+                account_type = result["account_type.account_type"]
         else:
             username_current = False
             account_type = False
@@ -218,12 +225,11 @@ def dashboard():
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE username = %s"
+                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
                 values = username_current
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
-        account_type = result["account_type"]
-        print(account_type)
+            account_type = result["account_type.account_type"]
     else:
         username_current = False
         account_type = False
@@ -236,10 +242,11 @@ def signup_page():
             username_current = session["username"]
             with create_connection() as connection:
                 with connection.cursor() as cursor:
-                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id"
-                    cursor.execute(sql)
+                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
+                    values = username_current
+                    cursor.execute(sql, values)
                     result = cursor.fetchone()
-            account_type = result["account_type"]
+                account_type = result["account_type.account_type"]
         else:
             username_current = False
             account_type = False
@@ -249,7 +256,7 @@ def signup_page():
             with connection.cursor() as cursor:
                 username_org = request.form["username"]
                 password_org = request.form["password"]
-                default_user_type = "normal"
+                default_user_type = "1"
                 password_final = encrypt(password_org)
                 values = (
                     username_org,
@@ -267,11 +274,11 @@ def view():
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE username = %s"
+                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
                 values = username_current
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
-        account_type = result["account_type"]
+            account_type = result["account_type.account_type"]
     else:
         username_current = False
         account_type = False
@@ -287,11 +294,11 @@ def buy():
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE username = %s"
+                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
                 values = username_current
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
-        account_type = result["account_type"]
+            account_type = result["account_type.account_type"]
     else:
         username_current = False
         account_type = False
@@ -301,17 +308,21 @@ def buy():
             productkey = cursor.fetchone()
             return render_template("checkout.html", product = productkey, username = username_current, account_type = account_type)
         
+@app.route("/payment")
+def payment():
+    pass
+
 @app.route("/review")
 def review():
     if "username" in session:
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
-                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE username = %s"
+                sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
                 values = username_current
                 cursor.execute(sql, values)
                 result = cursor.fetchone()
-        account_type = result["account_type"]
+            account_type = result["account_type.account_type"]
     else:
         username_current = False
         account_type = False
