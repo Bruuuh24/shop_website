@@ -223,7 +223,7 @@ def delete():
 @app.route("/dashboard")
 def dashboard():
     if "username" in session:
-        flash(str("Logged In Successfully!"))
+        flash("Logged In Successfully!")
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
