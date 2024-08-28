@@ -27,6 +27,7 @@ def encrypt(password):
 # the route for the home page where the about and review information for the VPN is displayed. 
 @app.route("/")
 def home_page():
+    # checks if the someone has logged in and gets the account type from the database.
     if "username" in session:
         username_current = session["username"]
         with create_connection() as connection:
@@ -44,6 +45,7 @@ def home_page():
 # displaying the avaliable products sold by Horizon VPN
 @app.route("/product")
 def product_page():
+    # checks if the someone has logged in and gets the account type from the database.
     if "username" in session:
         username_current = session["username"]
         with create_connection() as connection:
@@ -66,6 +68,7 @@ def product_page():
 @app.route("/login", methods = ["GET", "POST"])
 def login_page():
     if request.method == "GET":
+        # checks if the someone has logged in and gets the account type from the database. 
         if "username" in session:
             username_current = session["username"]
             with create_connection() as connection:
@@ -81,6 +84,10 @@ def login_page():
             account_type = False
         return render_template("login.html", username = username_current, account_type = account_type)
     elif request.method == "POST":
+        if "username" in session:
+            flash("Already Logged In!")
+            return redirect("/dashboard")
+    
         username_entered = request.form["username"]
         password_entered = request.form["password"]
         passwordencode = encrypt(password_entered)
@@ -108,6 +115,7 @@ def logout():
 
 @app.route("/admindashboard")
 def admin_dashboard():
+    # checks if the someone has logged in and gets the account type from the database.
     if "username" in session:
         username_current = session["username"]
         with create_connection() as connection:
@@ -132,6 +140,7 @@ def admin_dashboard():
 @app.route("/add", methods = ["GET", "POST"])
 def add():  
     if request.method == "GET":
+        # checks if the someone has logged in and gets the account type from the database.
         if "username" in session:
             username_current = session["username"]
             with create_connection() as connection:
@@ -164,6 +173,7 @@ def add():
 @app.route("/edit", methods = ["GET", "POST"])
 def edit():  
     if request.method == "GET":
+        # checks if the someone has logged in and gets the account type from the database.
         if "username" in session:
             username_current = session["username"]
             with create_connection() as connection:
@@ -198,6 +208,7 @@ def edit():
 @app.route("/delete", methods = ["GET", "POST"])
 def delete():  
     if request.method == "GET":
+        # checks if the someone has logged in and gets the account type from the database.
         if "username" in session:
             username_current = session["username"]
             with create_connection() as connection:
@@ -223,6 +234,7 @@ def delete():
 @app.route("/dashboard")
 def dashboard():
     if "username" in session:
+        # checks if the someone has logged in and gets the account type from the database.
         flash("Logged In Successfully!")
         username_current = session["username"]
         with create_connection() as connection:
@@ -244,6 +256,7 @@ def dashboard():
 def signup_page():
     if request.method == "GET":
         if "username" in session:
+            # checks if the someone has logged in and gets the account type from the database.
             username_current = session["username"]
             with create_connection() as connection:
                 with connection.cursor() as cursor:
@@ -276,6 +289,7 @@ def signup_page():
 @app.route("/view")
 def view():
     if "username" in session:
+        # checks if the someone has logged in and gets the account type from the database.
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -296,6 +310,7 @@ def view():
 @app.route("/checkout")
 def buy():
     if "username" in session:
+        # checks if the someone has logged in and gets the account type from the database.
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -313,13 +328,23 @@ def buy():
             productkey = cursor.fetchone()
             return render_template("checkout.html", product = productkey, username = username_current, account_type = account_type)
         
-@app.route("/payment")
+@app.route("/payment", methods = ["GET", "POST"])
 def payment():
-    pass
+    if request.method == "GET":
+        return render_template("payment.html")
+    elif request.method == "POST":
+        amount = request.form.get('amount')
+        card_number = request.form.get('card_number')
+        expiry_date = request.form.get('expiry_date')
+        cvv = request.form.get('cvv')
+        if not amount or not card_number or not expiry_date or not cvv:
+            flash()
 
+'''
 @app.route("/review")
 def review():
     if "username" in session:
+        # checks if the someone has logged in and gets the account type from the database.
         username_current = session["username"]
         with create_connection() as connection:
             with connection.cursor() as cursor:
@@ -332,5 +357,6 @@ def review():
         username_current = False
         account_type = False
     return render_template("review.html", username = username_current, account_type = account_type)
+'''
 
 app.run(host="0.0.0.0",port=5001,debug = True)

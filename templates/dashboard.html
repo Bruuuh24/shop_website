@@ -106,7 +106,7 @@
             {% with success = get_flashed_messages() %}
                 <div class="success">
                     {% if success %}
-                        <h3>Logged In Successfully!</h3>
+                        <h3>{{success}}</h3>
                     {% endif %}
                 </div>
             {% endwith %}
