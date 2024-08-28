@@ -114,8 +114,16 @@
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
                 </div>
+                <p>Your Password Should be a minimum </p>
                 <button type="submit" class="btn btn-primary">Sign Up</button>
             </form>
+            {% with error = get_flashed_messages() %}
+                <div class="error">
+                    {% if error %}
+                        <h3></h3>
+                    {% endif %}
+                </div>
+            {% endwith %}
         </div>
         <footer>
         </footer>
