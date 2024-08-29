@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : local
  Source Server Type    : MySQL
  Source Server Version : 90001 (9.0.1)
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 90001 (9.0.1)
  File Encoding         : 65001
 
- Date: 28/08/2024 21:20:40
+ Date: 29/08/2024 15:03:59
 */
 
 SET NAMES utf8mb4;
@@ -65,6 +65,7 @@ CREATE TABLE `products_bought`  (
   `product` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `date` datetime NULL DEFAULT NULL,
   `amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `time_length` time NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 

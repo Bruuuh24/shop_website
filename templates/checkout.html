@@ -104,9 +104,12 @@
     <body>
         <h2 class="main_title">Cart</h2>
         <div class="main_text">
-        
+            <div class="product">
+                <p>Product: {{ product["product"] }}</p>
+                <p>Price: {{ product["price"] }}</p>
+            </div>
             <a href="/payment">
-                <button>Click to Payment</button>
+                <button>Proceed to Payment</button>
             </a>
         </div>
     </body>

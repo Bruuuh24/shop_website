@@ -106,13 +106,18 @@
             <h3>Add new product</h3>
             <form method="POST" autocomplete="off" class="form-horizontal">
                 <label class="control-label">Product</label>
-                <input name="product">
+                <input name="product" required>
                 <br>
                 <label class="control-label">Price</label>
-                <input name="price">
+                <input name="price" required>
                 <br>
                 <label class="control-label">Product Type</label>
-                <input name="product_type">
+                <input name="product_type" required>
+                <br>
+                <label class="control-label">Description</label>
+                <input name="description" required>
+                <label class="control-label">Benfits</label> 
+                <input name="benfits" required>
                 <br>
                 <input type="hidden" name="add_product">
                 <button>Add</button>

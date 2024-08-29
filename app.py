@@ -136,7 +136,8 @@ def admin_dashboard():
         return render_template("admin_dashboard.html", username = username_current, products = productkey, account_type = account_type)
     else:
         return redirect("/")
-  
+
+# the route for the add page which where you can add new products to the database.
 @app.route("/add", methods = ["GET", "POST"])
 def add():  
     if request.method == "GET":
@@ -160,12 +161,16 @@ def add():
                 product = request.form["product"]
                 price = request.form["price"]
                 product_type = request.form["product_type"]
+                description = request.form["description"]
+                benfits = request.form["benfits"]
                 values = (
                     product, 
                     price, 
                     product_type, 
+                    description,
+                    benfits,
                 )
-                sql = "INSERT into products (product, price, product_type) VALUES(%s, %s, %s)"
+                sql = "INSERT into products (product, price, product_type, description, benfits) VALUES(%s, %s, %s, %s)"
                 cursor.execute(sql, values)
                 connection.commit()
                 return redirect("/admindashboard")
@@ -331,14 +336,31 @@ def buy():
 @app.route("/payment", methods = ["GET", "POST"])
 def payment():
     if request.method == "GET":
-        return render_template("payment.html")
+        if "username" in session:
+        # checks if the someone has logged in and gets the account type from the database.
+            username_current = session["username"]
+            with create_connection() as connection:
+                with connection.cursor() as cursor:
+                    sql = "SELECT * FROM users JOIN account_type ON users.account_type = account_type.id WHERE users.username = %s"
+                    values = username_current
+                    cursor.execute(sql, values)
+                    result = cursor.fetchone()
+                account_type = result["account_type.account_type"]
+        else:
+            username_current = False
+            account_type = False
+        return render_template("payment.html", username = username_current, account_type = account_type)
     elif request.method == "POST":
         amount = request.form.get('amount')
         card_number = request.form.get('card_number')
         expiry_date = request.form.get('expiry_date')
         cvv = request.form.get('cvv')
         if not amount or not card_number or not expiry_date or not cvv:
-            flash()
+            flash("Fill in all fields")
+            return render_template("payment")
+        else:
+            return redirect("/dashboard")
+
 
 '''
 @app.route("/review")
