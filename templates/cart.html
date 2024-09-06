@@ -42,6 +42,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/viewcart">Cart</a>
+                                </li>
                             {% endif %}
                             {% if account_type == "admin" and username %}
                                 <li class="nav-item">
@@ -86,6 +89,9 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/viewcart">Cart</a>
+                            </li>
                         {% endif %}
                         {% if account_type == "admin" and username %}
                             <li class="nav-item">
@@ -102,15 +108,41 @@
             </div>
         </nav>
     <body>
-        <h2 class="main_title">Cart</h2>
-        <div class="main_text">
-            <div class="product">
-                <p>Product: {{ product["product"] }}</p>
-                <p>Price: {{ product["price"] }}</p>
+        <h1 class="main_title">Your Cart</h1>
+            <div class="container mt-5">
+                {% if cart_items %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items %}
+                            <tr>
+                                <td>{{ item["product"] }}</td>
+                                <td>${{ item["price"] }}</td>
+                                <td>{{ item["quantity"] }}</td>
+                                <td>${{ item["price"] * item["quantity"] }}</td>
+                                <td>
+                                    <a href="/removefromcart?id={{ item['cart_id'] }}" class="btn btn-danger">Remove</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <h3>Total: ${{ total_price }}</h3>
+                    <a href="/product" class="btn btn-primary">Continue Shopping</a>
+                    <a href="/payment" class="btn btn-success">Proceed to Checkout</a>
+                {% else %}
+                    <p>Your cart is empty. <a href="/product">Browse Products</a></p>
+                {% endif %}
             </div>
-            <a href="/payment">
-                <button>Proceed to Payment</button>
-            </a>
-        </div>
+        <footer >
+        </footer>
     </body>
 </html>

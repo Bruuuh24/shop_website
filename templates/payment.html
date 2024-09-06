@@ -42,6 +42,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/viewcart">Cart</a>
+                                </li>
                             {% endif %}
                             {% if account_type == "admin" and username %}
                                 <li class="nav-item">
@@ -86,6 +89,9 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/viewcart">Cart</a>
+                            </li>
                         {% endif %}
                         {% if account_type == "admin" and username %}
                             <li class="nav-item">
@@ -102,32 +108,59 @@
             </div>
         </nav>
     <body>
-        <h2 class="main_title">Payment</h2>
-        <div class="main_text">
-            <form method="POST" class="mt-3">
-                <div class="form-group">
-                    <label for="amount">Amount</label>
-                    <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter amount">
+        <!-- TO DO add proper expiry date system -->
+        <div class="container py-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row d-flex justify-content-center pb-5">
+                        <div class="col-md-7 col-xl-5 mb-4 mb-md-0">
+                            <h2 class="main_title">Payment</h2>
+                            <div class="main_text">
+                                <form method="POST" class="mt-3">
+                                    <div class="form-group">
+                                        <label for="card_number">Card Number</label>
+                                        <input id="card_number" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" 
+                                        autocomplete="cc-number" maxlength="19" class="form-control" 
+                                        placeholder="xxxx xxxx xxxx xxxx" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="expiry_date">Expiry Date</label>
+                                        <input id="expiry_date" type="tel" inputmode="numeric" pattern="[0-9\s]{5}" 
+                                        maxlength="5" placeholder="xx/xx" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="tel" id="cvv" inputmode="numeric" pattern="[0-9\s]{3}" maxlength="3" placeholder="xxx" 
+                                        class="form-control" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Pay</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-xl-4 offset-xl-1">
+                            <div class="py-4 d-flex justify-content-end">
+                                <h6><a href="/">Cancel and return to website</a></h6>
+                                </div>
+                                <div class="rounded d-flex flex-column p-2 bg-body-tertiary">
+                                <div class="p-2 me-3">
+                                    <h4>Order Recap</h4>
+                                </div>
+                                {% for item in cart_items %}
+                                    <div class="p-2 d-flex">
+                                        <div class="col-8">{{ item["product"] }}Plan Per Month</div>
+                                        <div class="ms-auto">${{ item["price"] }}</div>
+                                    </div>
+                                {% endfor %}
+                                <div class="p-2 d-flex pt-3">
+                                    <div class="col-8"><b>Total</b></div>
+                                    <div class="ms-auto"><b class="text-success">${{ total_price }}</h3></b></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="card_number">Card Number</label>
-                    <input id="card_number" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" 
-                     autocomplete="cc-number" maxlength="19" class="form-control" 
-                     placeholder="xxxx xxxx xxxx xxxx" required>
-                </div>
-                <div class="form-group">
-                    <!-- TO DO add proper expiry date system -->
-                    <label for="expiry_date">Expiry Date</label>
-                    <input id="expiry_date" type="tel" inputmode="numeric" pattern="[0-9\s]{5}" 
-                     maxlength="5" placeholder="xx/xx" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="cvv">CVV</label>
-                    <input type="tel" id="cvv" inputmode="numeric" pattern="[0-9\s]{3}" maxlength="3" placeholder="xxx" 
-                    class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Pay</button>
-            </form>
+            </div>
         </div>
+        
     </body>
 </html>
