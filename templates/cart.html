@@ -15,7 +15,7 @@
         <nav class="navbar fixed-top d-sm-none">
             <div class="container-fluid">
                 <!-- navbar logo (top left side)-->
-                <img alt="Diversity Logo" src="static/logo.png" class="img-fluid" width="32">
+                <img alt="Horizon Vpn Logo" src="static/logo.png" class="img-fluid" width="32">
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -66,7 +66,7 @@
         <nav class="navbar navbar-expand-lg d-sm-block">
             <div class="container-fluid">
                 <!-- navbar logo (top left side)-->
-                <img alt="Diversity Logo" src="static/logo.png" class="img-fluid" width="32">
+                <img alt="Horizon Vpn Logo" src="static/logo.png" class="img-fluid" width="32">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -110,6 +110,14 @@
     <body>
         <h1 class="main_title">Your Cart</h1>
             <div class="container mt-5">
+                {% with success = get_flashed_messages() %}
+                    <div class="success">
+                        {% if success %}
+                            <h3>{{ success }}</h3>
+                        {% endif %}
+                    </div>
+                {% endwith %}
+                <div class="gallery_products">
                 {% if cart_items %}
                     <table class="table table-striped">
                         <thead>
@@ -124,7 +132,7 @@
                         <tbody>
                             {% for item in cart_items %}
                             <tr>
-                                <td>{{ item["product"] }}</td>
+                                <td>{{ item["product"] }} Plan</td>
                                 <td>${{ item["price"] }}</td>
                                 <td>{{ item["quantity"] }}</td>
                                 <td>${{ item["price"] * item["quantity"] }}</td>
@@ -142,7 +150,5 @@
                     <p>Your cart is empty. <a href="/product">Browse Products</a></p>
                 {% endif %}
             </div>
-        <footer >
-        </footer>
     </body>
 </html>

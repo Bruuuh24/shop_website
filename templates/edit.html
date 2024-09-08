@@ -15,7 +15,7 @@
         <nav class="navbar fixed-top d-sm-none">
             <div class="container-fluid">
                 <!-- navbar logo (top left side)-->
-                <img alt="Diversity Logo" src="static/logo.png" class="img-fluid" width="32">
+                <img alt="Horizon Vpn Logo" src="static/logo.png" class="img-fluid" width="32">
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -65,7 +65,7 @@
         <nav class="navbar navbar-expand-lg d-sm-block">
             <div class="container-fluid">
                 <!-- navbar logo (top left side)-->
-                <img alt="Diversity Logo" src="static/logo.png" class="img-fluid" width="32">
+                <img alt="Horizon Vpn Logo" src="static/logo.png" class="img-fluid" width="32">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -107,18 +107,48 @@
             </div>
         </nav>
     <body>
-        <h3>Edit product</h3>
-        <form method="POST" autocomplete="off">
-            Product ID
-            <input name="id" required>
-            Product
-            <input name="product" required>
-            Price
-            <input name="price" required>
-            Product Type
-            <input name="product_type" required>
-            <input type="hidden" name="edit_product">
-            <button>Edit</button>
-        </form>
+        <div class="main_text">
+            {% with error = get_flashed_messages() %}
+                <div class="error">
+                    {% if error %}
+                        <h3>{{ error }}</h3>
+                    {% endif %}
+                </div>
+            {% endwith %}
+            <h3>Edit Product</h3>
+            <form method="POST" autocomplete="off">
+                <div class="form-group">
+                    <label class="control-label">Product ID</label>
+                    <input name="id" required maxlength="3" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label class="control-label">Product</label>
+                    <input name="product" required maxlength="255" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label class="control-label">Price</label>
+                    <input name="price" required maxlength="255" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label class="control-label">Product Type</label>
+                    <input name="product_type" required maxlength="255" class="form-control">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label class="control-label">Description</label>
+                    <input name="description" required maxlength="255" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Benefits</label>
+                    <input name="benfits" required maxlength="255" class="form-control">
+                </div>
+                <br>
+                <input type="hidden" name="edit_product">
+                <button class="btn btn-primary">Edit</button>
+            </form>
+        </div>
     </body>
 <html>

@@ -15,7 +15,7 @@
         <nav class="navbar fixed-top d-sm-none">
             <div class="container-fluid">
                 <!-- navbar logo (top left side)-->
-                <img alt="Diversity Logo" src="static/logo.png" class="img-fluid" width="32">
+                <img alt="Horizon Vpn Logo" src="static/logo.png" class="img-fluid" width="32">
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -66,7 +66,7 @@
         <nav class="navbar navbar-expand-lg d-sm-block">
             <div class="container-fluid">
                 <!-- navbar logo (top left side)-->
-                <img alt="Diversity Logo" src="static/logo.png" class="img-fluid" width="32">
+                <img alt="Horizon Vpn Logo" src="static/logo.png" class="img-fluid" width="32">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -109,24 +109,41 @@
         </nav>
     <body>
         <div class="main_text">
-            <h3>Add new product</h3>
+            {% with error = get_flashed_messages() %}
+                <div class="error">
+                    {% if error %}
+                        <h3>{{ error }}</h3>
+                    {% endif %}
+                </div>
+            {% endwith %}
+            <h3>Add New Product</h3>
             <form method="POST" autocomplete="off" class="form-horizontal">
-                <label class="control-label">Product</label>
-                <input name="product" required>
+                <div class="form-group">
+                    <label class="control-label">Product</label>
+                    <input name="product" required maxlength="255" class="form-control">
+                </div>
                 <br>
-                <label class="control-label">Price</label>
-                <input name="price" required>
+                <div class="form-group">
+                    <label class="control-label">Price</label>
+                    <input name="price" required maxlength="255" class="form-control">
+                </div>
                 <br>
-                <label class="control-label">Product Type</label>
-                <input name="product_type" required>
+                <div class="form-group">
+                    <label class="control-label">Product Type</label>
+                    <input name="product_type" required maxlength="255" class="form-control">
+                </div>
                 <br>
-                <label class="control-label">Description</label>
-                <input name="description" required>
-                <label class="control-label">Benfits</label> 
-                <input name="benfits" required>
+                <div class="form-group">
+                    <label class="control-label">Description</label>
+                    <input name="description" required maxlength="255" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Benefits</label>
+                    <input name="benfits" required maxlength="255" class="form-control">
+                </div>
                 <br>
                 <input type="hidden" name="add_product">
-                <button>Add</button>
+                <button class="btn btn-primary">Add</button>
             </form>
         </div>
     </body>

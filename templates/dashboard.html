@@ -15,7 +15,7 @@
         <nav class="navbar fixed-top d-sm-none">
             <div class="container-fluid">
                 <!-- navbar logo (top left side)-->
-                <img alt="Diversity Logo" src="static/logo.png" class="img-fluid" width="32">
+                <img alt="Horizon Vpn Logo" src="static/logo.png" class="img-fluid" width="32">
                 <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -65,7 +65,7 @@
         <nav class="navbar navbar-expand-lg d-sm-block">
             <div class="container-fluid">
                 <!-- navbar logo (top left side)-->
-                <img alt="Diversity Logo" src="static/logo.png" class="img-fluid" width="32">
+                <img alt="Horizon Vpn Logo" src="static/logo.png" class="img-fluid" width="32">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -112,16 +112,24 @@
             {% with success = get_flashed_messages() %}
                 <div class="success">
                     {% if success %}
-                        <h3>{{success}}</h3>
+                        <h3>{{ success }}</h3>
                     {% endif %}
                 </div>
             {% endwith %}
             <h3>Your Products</h3>
-            {% for products_owned in products_sold %}
-                {{ products }}
-            {% endfor %}
+                {% if products_sold %}
+                    <div class="gallery_products">
+                        {% for item in products_sold %}
+                            <div class="product">
+                                <h1 class="product_title">{{ item.product }} Plan For One Month</h1>
+                                <p>Expires On {{ item.duration}}</p> 
+                                <p>Bought On {{ item.date}}</p> 
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>You do not have products currently!<p>
+                {% endif %}
         </div>
-        <footer>
-        </footer>
     </body>
 </html>
